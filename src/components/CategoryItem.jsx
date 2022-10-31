@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { mobile } from "../responsive"
 
 
 const Container = styled.div`
@@ -11,6 +12,7 @@ const Image = styled.img`
 width: 100%;
 height: 100%;   // parent container ka 100 % height, here parent container is container component of categoryItem
 object-fit: cover;  // images ka size small hone par image appearance distort ho gaya, isliye use sahi karne ke liye we cropped it as a cover image
+${mobile({height: "30vh"})};
 `
 const Info = styled.div`
 position: absolute;         // To move info over the image we need to use absolute pos in child and relative to parent

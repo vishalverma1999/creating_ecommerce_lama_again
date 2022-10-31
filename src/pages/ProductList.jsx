@@ -4,6 +4,7 @@ import Announcement from "../components/Announcement"
 import Products from "../components/Products"
 import Newsletter from "../components/Newsletter"
 import Footer from "../components/Footer"
+import { mobile } from "../responsive"
 
 
 const Container = styled.div``
@@ -17,11 +18,13 @@ const Filter = styled.div`
 /* display: flex;
 align-items: center; */
 margin: 20px;
+${mobile({display: "flex", flexDirection: "column"})}   // or can use flexWrap: "wrap"
 `
 const FilterText = styled.span`
 font-size: 20px;
 font-weight: 600;
 margin-right: 20px;
+${mobile({marginRight: "0px"})}
 `
 
 
@@ -29,6 +32,7 @@ const Select = styled.select`
  /* border: 2px solid red; */
  padding: 10px;
  margin-right: 20px;
+ ${mobile({margin: "10px 0px"})}
 `
 const Option = styled.option`
 

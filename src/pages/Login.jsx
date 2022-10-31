@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import {mobile} from '../responsive'
 
 const Container = styled.div`
 // since it is going to be full screen component therefore 100vw and 100vh
@@ -16,6 +17,7 @@ const Wrapper = styled.div`
 width: 25%;
 padding: 20px;
 background-color: white;
+${mobile({width: "75%"})}
 `
 
 const Form = styled.form`

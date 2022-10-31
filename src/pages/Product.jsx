@@ -4,12 +4,14 @@ import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import Newsletter from "../components/Newsletter"
 import { Add, Remove } from "@material-ui/icons"
+import { mobile } from "../responsive"
 
 const Container = styled.div`
 `
 const Wrapper = styled.div`
 padding: 50px;
 display: flex;
+${mobile({flexDirection: "column", padding:"10px"})}
 `
 const ImageContainer = styled.div`
 flex:1
@@ -18,10 +20,12 @@ const Image = styled.img`
 height: 90vh;   // kyunki height ko 100% karne par bhi image ki height bohot jyada ho rahi thi
 width: 100%;
 object-fit: cover;
+${mobile({height: "40vh"})}
 `
 const InfoContainer = styled.div`
 flex:1;
 padding: 0 50px;
+${mobile({padding: "10px"})}
 `
 const Title = styled.h1`
 font-weight: 200;
@@ -39,6 +43,7 @@ display: flex;
 justify-content: space-between;
 width: 50%;    // InfoContainer jiski width flex: 1; hai us infocontainer ki bhi 50% width kardo bas
 margin: 30px 0px;
+${mobile({width: "100%"})}
 `
 const Filter = styled.div`
 display: flex;
@@ -70,6 +75,7 @@ width: 50%;
 display: flex;
 align-items: center;
 justify-content: space-between;
+${mobile({width: "100%"})}
 `
 
 const AmountContainer = styled.div`
