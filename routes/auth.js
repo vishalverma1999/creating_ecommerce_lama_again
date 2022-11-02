@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User");    // importing the User model
 const CryptoJS = require("crypto-js");   // importing crypto library to encrypt password, to add package use yarn add crypto-js 
-// const jwt = require("jsonwebtoken");   // importing jwt library
+const jwt = require("jsonwebtoken");   // importing jwt library
 
 // REGISTER- it is a post request because the user is gonna send us username password and other information
 router.post("/register", async (req, res) => {
@@ -32,9 +32,15 @@ router.post('/login', async (req, res) => {
 
         originalPassword !== req.body.password && res.status(401).json("Wrong Credentials");
 
+        // after login process if everything is ok, then create json web token
+        const accessToken = jwt.sign({
+            id: user._id,
+            isAdmin: user.isAdmin
+        }, process.env.JWT_SEC, {expiresIn: "3d"});
+
         const { password, ...others } = user._doc;    // never reveal your password, even if it is in encrypted form, hence take out password from the user object and put remaining things in 'others' object using spread operator.
 
-        res.status(200).json(others);
+        res.status(200).json({...others, accessToken});
     } catch (err) {
         res.status(500).json(err);
     }
