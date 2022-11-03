@@ -27,5 +27,17 @@ const verifyTokenAndAuthorization = (req, res, next) => {
     })
 };
 
+// example for order or product only admin can add any product so it means we should create another function here and it's gonna be verifyTokenAndAdmin
+const verifyTokenAndAdmin = (req, res, next) => {
 
-module.exports = { verifyToken, verifyTokenAndAuthorization };
+    // we have next here, remember we can write any function here
+    verifyToken(req, res, () => {
+        if (req.user.isAdmin) {
+            next();
+        } else {
+            res.status(403).json("You are not allowed to do that! , webtoken id and id of the client not matched and also you are not the admin");
+        }
+    })
+}
+
+module.exports = { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin };
