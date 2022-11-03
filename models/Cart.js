@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');   // importing mongoose
+const mongoose = require('mongoose');
 
 const CartSchema = new mongoose.Schema(
     {
         userId: { type: String, required: true },
-        //it's going to be type string. Actually after purchasing the stripe library is going to return us an object so we can use it, that's why type is object, that because it's going to contain line one xyz, line two city, then  country and other informations so we can write here object.
+        //it can be multiple products so it's gonna be array but i'm not gonna write here that because i'm gonna indicate here some specific properties so what i will do is writing here [] 
         products: [
             {
                 productId: { type: String },
@@ -13,5 +13,27 @@ const CartSchema = new mongoose.Schema(
     },
     { timestamps: true }   // This will create createdAt and updatedAt time both
 );
+
+// SARTHAK WAALA 
+// const CartSchema = new mongoose.Schema({
+//     userId: {
+//         type: String,
+//         required: true,
+//     },
+//     products: [         //products will be containing many different products
+//         {
+
+//         }
+//     ],
+//     cart_quantity: {
+//         type: Number
+//     },
+//     total_amt: {
+//         type: Number
+//     }
+
+// },
+//     { timestamps: true }   //Mongo will create createdAt and updatedAt .
+// )
 
 module.exports = mongoose.model("Cart", CartSchema)
