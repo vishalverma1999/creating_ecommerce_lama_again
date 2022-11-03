@@ -63,4 +63,36 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
     }
 });
 
+// GET USER STATS
+router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
+
+    const date = new Date();  // creates current date
+    const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));   // will generate last year today
+
+    try {
+        // as i said i run a user statistics per month to do that i should group my items and for this we can use mongodb aggregate 
+        const data = await User.aggregate([
+            { $match: { createdAt: { $gte: lastYear } } },   //  match is gonna try to match my condition. what's my condition it's gonna be createdAt date because remember every user has createdAt and i will say it's gonna be less than today and greater than last year basically i will just say greater than last year
+            {
+                // okay and i wanna take month numbers. To do that i will use project and month and it's going to be $month and my createdAt inside my db. We just create month variable here and we set- take the month number from inside my createdAt date what i mean by that for example this user has been created at 2021-09-18 it's gonna take this number which is nine(september) and it's gonna assign to the month variable, it's that easy if you say year it's gonna just return 2021.
+                $project: {
+                    month: { $month: "$createdAt" },
+                },
+            },
+            {
+                // After this project i can group my items my users. I will say group and you should write here id first it should be unique so i can choose my month variable here for september it's going to be 9 for august it's going to be 8 something like that and also i need total user number so i will say total and i can use sum method here and if i say just one it's gonna sum every registered user
+                $group: {
+                    _id: "$month",
+                    total: { $sum: 1 },
+                },
+            },
+        ])
+
+        res.status(200).json(data);
+    } 
+    catch (error) {
+        res.status(500).json(error);
+    }
+})
+
 module.exports = router;
