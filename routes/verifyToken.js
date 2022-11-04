@@ -8,6 +8,7 @@ const verifyToken = (req, res, next) => {
         jwt.verify(token, process.env.JwT_SEC, (err, user) => {
 
             if (err) res.status(403).json("Token is not valid!");
+            console.log(user);
             req.user = user;
             next();
         })
@@ -33,9 +34,10 @@ const verifyTokenAndAdmin = (req, res, next) => {
     // we have next here, remember we can write any function here
     verifyToken(req, res, () => {
         if (req.user.isAdmin) {
+            console.log("hello")
             next();
         } else {
-            res.status(403).json("You are not allowed to do that! , webtoken id and id of the client not matched and also you are not the admin");
+            res.status(403).json("you are not the admin");
         }
     })
 }
